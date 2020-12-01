@@ -8,17 +8,38 @@ using UnityEngine.UI;
 
 public class AlertDialog : Dialog
 {
-    //一般設置
+    [Header("Settings")]
+    //預設設置
     [SerializeField] Text messageText = null;
     [SerializeField] GameObject confirmBtn = null;//確認鍵
     [SerializeField] GameObject cancelBtn = null;//取消鍵
 
-    //客制設置
+    //客制設置(可自訂義按鍵)
     [SerializeField] GameObject buttonPrefab = null;
     [SerializeField] Transform buttonZone = null;//放置按鍵位置
 
-    private UnityAction afterConfirm = null;//確認後之動作
-    private UnityAction afterCancel = null;//取消後之動作
+    protected string message = "";
+    protected UnityAction afterConfirm = null;//確認後之動作
+    protected UnityAction afterCancel = null;//取消後之動作
+
+    /// <summary>
+    /// 彈跳視窗初始化。
+    /// </summary>
+    public void Init(string message)
+    {
+        this.message = message;
+        SpecificInit();
+    }
+
+    /// <summary>
+    /// 初始化。設定確認後動作。
+    /// </summary>
+    public void Init(string message, UnityAction afterConfirm)
+    {
+        this.message = message;
+        this.afterConfirm = afterConfirm;
+        SpecificInit();
+    }
 
     /// <summary>
     /// 初始化。設定關閉前動作，及確認後動作。
@@ -36,7 +57,7 @@ public class AlertDialog : Dialog
     /// </summary>
     protected override void SpecificInit()
     {
-        if (dialogOption != null)//看是不是有特別設置
+        if (dialogOption == null)//看是不是有特別設置
         {
             messageText.text = message;
 
@@ -56,6 +77,7 @@ public class AlertDialog : Dialog
             ResetDialog();//清空顯示設置
 
             messageText.text = dialogOption.message;
+            afterCancel = dialogOption.afterCancel;
 
             int btnAmount = dialogOption.btnSettings.Count;
             if (btnAmount > 2 || btnAmount == 0)
@@ -72,7 +94,7 @@ public class AlertDialog : Dialog
                     //顏色
                     btn.GetComponent<Image>().color = dialogOption.btnSettings[i].color;
                     //內容
-                    btn.GetComponentInChildren<Text>().text = message;
+                    btn.GetComponentInChildren<Text>().text = dialogOption.btnSettings[i].text;
                     //動作
                     btn.GetComponent<Button>().onClick.AddListener(dialogOption.btnSettings[i].afterClick);
                 }
@@ -102,6 +124,8 @@ public class AlertDialog : Dialog
     protected override void ResetDialog()
     {
         messageText.text = "";
+        afterConfirm = null;
+        afterCancel = null;
         //清除按鍵
         foreach (Transform b in buttonZone)
         {

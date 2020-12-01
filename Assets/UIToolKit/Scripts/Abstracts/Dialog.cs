@@ -3,17 +3,7 @@ using UnityEngine;
 
 public abstract class Dialog : MonoBehaviour
 {
-    protected string message;
-    protected DialogOption dialogOption;
-
-    /// <summary>
-    /// 彈跳視窗初始化。
-    /// </summary>
-    public void Init(string message)
-    {
-        this.message = message;
-        SpecificInit();
-    }
+    protected DialogOption dialogOption = null;
 
     /// <summary>
     /// 彈跳視窗初始化，使用進階設定。
@@ -30,7 +20,7 @@ public abstract class Dialog : MonoBehaviour
     protected virtual void SpecificInit(){}
 
     /// <summary>
-    /// 清空視窗所有顯示設定。
+    /// 清空視窗所有顯示設定，用於介面重整。
     /// </summary>
     protected virtual void ResetDialog(){}
 
