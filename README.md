@@ -5,8 +5,8 @@
 ----
 #### 初始化
 1. 於Hierarchy右鍵增添Canvas。
-2. 將UIManager元件添加至Canvas物件中。
-3. 於UIManager中Orientation中選擇遊戲為直向(Portrait)或是橫向(Landscape)。
+2. 於Hierarchy右鍵新增UIManager。
+3. 於UIManager中Orientation中選擇遊戲為直向(Portrait)、橫向(Landscape)或是自行判斷方向(Auto)。
 
 ### 介面管理員
 ----
@@ -28,8 +28,8 @@
 
 #### 提示介面 Toast
 適用於簡單的提示通知，不影響使用者體驗為原則，將於一段時間後自動消逝淡出。
-- [ ] 一般
-
+- [x] 一般
+- [x] 消逝
 
 ### 小工具
 ----

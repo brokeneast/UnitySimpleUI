@@ -1,7 +1,6 @@
 ﻿/*
  * 提醒視窗作為使用者動作確認或提示，最多為兩種選擇，通常為確認即取消，適合運用在系統提示、警告等。
  */
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
