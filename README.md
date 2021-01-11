@@ -6,7 +6,6 @@
 #### 初始化
 1. 於Hierarchy右鍵增添Canvas。
 2. 於Hierarchy右鍵新增UIManager。
-3. 於UIManager中Orientation中選擇遊戲為直向(Portrait)、橫向(Landscape)或是自行判斷方向(Auto)。
 
 ### 介面管理員
 ----
