@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Toast : MonoBehaviour
 {
-    protected string message;//欲呈現傳遞的文字內容
+    protected string message;
 
     /// <summary>
     /// 吐司提示初始化。

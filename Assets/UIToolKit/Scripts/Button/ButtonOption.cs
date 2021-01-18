@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ButtonOption
+public class ButtonOption : Option
 {
     public UnityAction afterClick;//點擊事件
     public string text { get; private set; }//文字內容

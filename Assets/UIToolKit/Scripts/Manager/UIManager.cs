@@ -30,15 +30,62 @@ public class UIManager : MonoBehaviour
     private static readonly Vector2 landscapeReferenceResolution = new Vector2(1280, 720);
 
     private GameObject canvas;
- 
+    
+    //物件路徑
+    //Manager
+    private static readonly string managerPath = "Assets/UIToolkit/Prefabs/Manager/UIManager.prefab";
 
+    //模組
+    private DialogManager _dialogManager;
+    /// <summary>
+    /// 彈跳視窗管理。
+    /// </summary>
+    public DialogManager dialogManager
+    {
+        get
+        {
+            if (_dialogManager == null)
+            {
+                Debug.LogWarning("需新增Dialog Manager元件於UIManager。點擊UIManager元件的Context Menu -> Add Dialog Manager");
+                return null;
+            }
+            else
+            {
+                return _dialogManager;
+            }
+        }
+        private set { _dialogManager = value; }
+    }
+
+    private ToastManager _toastManager;
+    /// <summary>
+    /// 提示吐司管理。
+    /// </summary>
+    public ToastManager toastManager
+    {
+        get
+        {
+            if (_toastManager == null)
+            {
+                Debug.LogWarning("需新增Toast Manager元件於UIManager。點擊UIManager元件的Context Menu -> Add Toast Manager");
+                return null;
+            }
+            else
+            {
+                return _toastManager;
+            }
+        }
+        private set { _toastManager = value; }
+    }
+
+    #region Init
     /// <summary>
     /// 新增UIManager於Hierarchy。
     /// </summary>
     [MenuItem("GameObject/UIToolkit/UI Manager")]
     public static void CreateUIManager()
     {
-        GameObject um = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath("Assets/UIToolkit/Prefabs/Manager/UIManager.prefab", typeof(GameObject)));
+        GameObject um = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath(managerPath, typeof(GameObject)));
         um.name = "UIManager";
     }
 
@@ -80,7 +127,9 @@ public class UIManager : MonoBehaviour
     {
         RefreshReferenceResolution();
     }
+    #endregion
 
+    #region Orientation
     /// <summary>
     /// 刷新方向判斷，附與合適的參考比例。
     /// </summary>
@@ -125,5 +174,31 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Dialog
+    [ContextMenu("Add Dialog Manager")]
+    /// <summary>
+    /// 新增彈跳視窗模組。
+    /// </summary>
+    public void AddDialogManager()
+    {
+        dialogManager = gameObject.AddComponent<DialogManager>();
+    }
+
+    #endregion
+
+    #region Toast
+    [ContextMenu("Add Toast Manager")]
+    /// <summary>
+    /// 新增彈跳視窗模組。
+    /// </summary>
+    public void AddToastManager()
+    {
+        toastManager = gameObject.AddComponent<ToastManager>();
+        toastManager.Init(canvas);
+    }
+
+    #endregion
 
 }
