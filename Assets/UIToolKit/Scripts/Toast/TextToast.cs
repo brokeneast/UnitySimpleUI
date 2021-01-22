@@ -10,6 +10,6 @@ public class TextToast : Toast
 
     protected override void SpecificInit()
     {
-        messageText.text = message;//設置內容
+        messageText.text = option.message;//設置內容
     }
 }

@@ -23,11 +23,10 @@ public class ToastOption : Option
     /// </summary>
     private float holdingTime;
 
-    /// <summary>
-    /// 文字吐司。
-    /// </summary>
     public ToastOption(Type type)
     {
         this.type = type;
     }
+
+
 }

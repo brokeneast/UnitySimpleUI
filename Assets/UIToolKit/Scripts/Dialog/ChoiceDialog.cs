@@ -16,13 +16,13 @@ public class ChoiceDialog : Dialog
 
     protected override void SpecificInit()
     {
-        if (dialogOption != null)//有設置
+        if (option != null)//有設置
         {
             ResetDialog();//清空顯示設置
 
-            messageText.text = dialogOption.message;
+            messageText.text = option.message;
 
-            int btnAmount = dialogOption.btnSettings.Count;
+            int btnAmount = option.btnSettings.Count;
             if (btnAmount >= minAmount && btnAmount <= maxAmount)
             {
                 Debug.LogErrorFormat("按鍵數量錯誤，需於{0}~{1}之間", minAmount, maxAmount);
@@ -35,11 +35,11 @@ public class ChoiceDialog : Dialog
                     GameObject btn = Instantiate(buttonPrefab);
                     btn.transform.SetParent(buttonZone.transform, false);
                     //顏色
-                    btn.GetComponent<Image>().color = dialogOption.btnSettings[i].color;
+                    btn.GetComponent<Image>().color = option.btnSettings[i].color;
                     //內容
-                    btn.GetComponentInChildren<Text>().text = dialogOption.btnSettings[i].text;
+                    btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
                     //動作
-                    btn.GetComponent<Button>().onClick.AddListener(dialogOption.btnSettings[i].afterClick);
+                    btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
                 }
             }
         }
@@ -54,7 +54,7 @@ public class ChoiceDialog : Dialog
     /// </summary>
     public override void Cancel()
     {
-        dialogOption.afterCancel?.Invoke();
+        option.afterCancel?.Invoke();
         Destroy(gameObject);
     }
 

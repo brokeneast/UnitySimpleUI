@@ -1,23 +1,20 @@
-﻿using System;
-using UnityEngine;
-
-public abstract class Dialog : MonoBehaviour
+﻿public abstract class Dialog : UIWidget<DialogOption>
 {
-    protected DialogOption dialogOption = null;
+    protected DialogOption option;
 
     /// <summary>
     /// 彈跳視窗初始化，使用進階設定。
     /// </summary>
-    public void Init(DialogOption dialogOption)
+    public override void Init(DialogOption option)
     {
-        this.dialogOption = dialogOption;
+        this.option = option;
         SpecificInit();
     }
 
     /// <summary>
     /// 根據類型視窗進行初始化。
     /// </summary>
-    protected virtual void SpecificInit(){}
+    protected override void SpecificInit(){}
 
     /// <summary>
     /// 清空視窗所有顯示設定，用於介面重整。
@@ -27,8 +24,9 @@ public abstract class Dialog : MonoBehaviour
     /// <summary>
     /// 關閉視窗。
     /// </summary>
-    public virtual void Cancel()
+    public override void Cancel()
     {
+        option.afterCancel?.Invoke();
         Destroy(gameObject);
     }
 

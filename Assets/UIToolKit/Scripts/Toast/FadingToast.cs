@@ -26,7 +26,8 @@ public class FadingToast : TextToast
     public void Init(string message, float time)
     {
         holdingTime = time;
-        Init(message);
+        option.message = message;
+        Init(option);
     }
 
     protected override void SpecificInit()

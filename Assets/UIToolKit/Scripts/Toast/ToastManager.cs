@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ToastManager : UIWidgetManager<ToastOption>
+public class ToastManager : UIWidgetManager<Toast, ToastOption>
 {
-    private static readonly string fadingToastPath = "Assets/UIToolkit/Prefabs/Toast/FadingToast.prefab";
-    private static readonly string textToastPath = "Assets/UIToolkit/Prefabs/Toast/TextToast.prefab";
-
     #region Toast Prefab
+    private readonly string fadingToastPath = "Assets/UIToolkit/Prefabs/Toast/FadingToast.prefab";
+    private readonly string textToastPath = "Assets/UIToolkit/Prefabs/Toast/TextToast.prefab";
+
     [SerializeField]
     [Tooltip("自動消逝型態的吐司提示。")]
     GameObject _fadingToastPrefab;
@@ -46,14 +46,14 @@ public class ToastManager : UIWidgetManager<ToastOption>
     /// <summary>
     /// 初始化。
     /// </summary>
-    public override void Init(GameObject parent)
+    public override void Init(GameObject defaultParent)
     {
-        option = new ToastOption(ToastOption.Type.FADING_TOAST);
-        this.parent = parent;
-
-        //預設
+        //初始化
         _fadingToastPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(fadingToastPath, typeof(GameObject));
         _textToastPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(textToastPath, typeof(GameObject));
+
+        //預設
+        this.defaultParent = defaultParent;
     }
 
     /// <summary>
@@ -63,6 +63,7 @@ public class ToastManager : UIWidgetManager<ToastOption>
     {
         option = new ToastOption(ToastOption.Type.FADING_TOAST);
         option.message = msg;
+        Create(option);
     }
 
     /// <summary>
@@ -71,23 +72,17 @@ public class ToastManager : UIWidgetManager<ToastOption>
     public override void Create(ToastOption option)
     {
         this.option = option;
-        
+        GameObject widget;
         //物件生成
         if(option.type == ToastOption.Type.TEXT_TOAST)
         {
-            currentWidget = Instantiate(fadingToastPrefab, parent.transform);
+            widget = Instantiate(fadingToastPrefab, defaultParent.transform);
         }
         else
         {
-            currentWidget = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath(fadingToastPath, typeof(GameObject)), parent.transform);
+            widget = Instantiate(fadingToastPrefab, defaultParent.transform);
         }
-    }
 
-    /// <summary>
-    /// 關閉全部。
-    /// </summary>
-    public override void Cancel()
-    {
-        Destroy(gameObject);
+        WidgetInit(widget);
     }
 }

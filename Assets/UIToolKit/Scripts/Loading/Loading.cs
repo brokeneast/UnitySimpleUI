@@ -1,22 +1,18 @@
-﻿/*
- * 吐司提示，在不干擾使用者流程下的提示介面。
- */
-
-public abstract class Toast : UIWidget<ToastOption>
+﻿public class Loading : UIWidget<LoadingOption>
 {
-    protected ToastOption option;
+    protected LoadingOption option;
 
     /// <summary>
-    /// 吐司提示初始化。
+    /// 讀取提示初始化。
     /// </summary>
-    public override void Init(ToastOption option)
+    public override void Init(LoadingOption option)
     {
         this.option = option;
         SpecificInit();
     }
 
     /// <summary>
-    /// 根據類型吐司進行初始化。
+    /// 根據類型讀取進行初始化。
     /// </summary>
     protected override void SpecificInit() { }
 
