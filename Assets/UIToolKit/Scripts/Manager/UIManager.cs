@@ -85,8 +85,16 @@ public class UIManager : MonoBehaviour
     [MenuItem("GameObject/UIToolkit/UI Manager")]
     public static void CreateUIManager()
     {
-        GameObject um = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath(managerPath, typeof(GameObject)));
-        um.name = "UIManager";
+        if (GameObject.Find("UIManager")==null) //場景中尚未有UIManager
+        {
+            GameObject um = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath(managerPath, typeof(GameObject)));
+            um.name = "UIManager";
+        }
+        else
+        {
+            Debug.LogWarning("已建立過UIManager於場景中。");
+        }
+        
     }
 
     void Awake()
@@ -184,6 +192,7 @@ public class UIManager : MonoBehaviour
     public void AddDialogManager()
     {
         dialogManager = gameObject.AddComponent<DialogManager>();
+        dialogManager.Init(canvas);
     }
 
     #endregion
