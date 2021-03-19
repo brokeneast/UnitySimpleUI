@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ToastManager : UIWidgetManager<Toast, ToastOption>
 {
-    #region Toast Prefab
+    #region Toast Prefab Settings
     private readonly string fadingToastPath = "Assets/UIToolkit/Prefabs/Toast/FadingToast.prefab";
     private readonly string textToastPath = "Assets/UIToolkit/Prefabs/Toast/TextToast.prefab";
 
@@ -13,7 +13,7 @@ public class ToastManager : UIWidgetManager<Toast, ToastOption>
     [Tooltip("自動消逝型態的吐司提示。")]
     GameObject _fadingToastPrefab;
 
-    public GameObject fadingToastPrefab
+    private GameObject fadingToastPrefab
     {
         get { return _fadingToastPrefab; }
         set
@@ -29,7 +29,7 @@ public class ToastManager : UIWidgetManager<Toast, ToastOption>
     [Tooltip("一般吐司提示，需自行刪除。")]
     GameObject _textToastPrefab;
 
-    public GameObject textToastPrefab
+    private GameObject textToastPrefab
     {
         get { return _textToastPrefab; }
         set
@@ -46,14 +46,11 @@ public class ToastManager : UIWidgetManager<Toast, ToastOption>
     /// <summary>
     /// 初始化。
     /// </summary>
-    public override void Init(GameObject defaultParent)
+    public override void Init()
     {
         //初始化
         _fadingToastPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(fadingToastPath, typeof(GameObject));
         _textToastPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(textToastPath, typeof(GameObject));
-
-        //預設
-        this.defaultParent = defaultParent;
     }
 
     /// <summary>
@@ -72,7 +69,10 @@ public class ToastManager : UIWidgetManager<Toast, ToastOption>
     public override void Create(ToastOption option)
     {
         this.option = option;
+
         GameObject widget;
+        defaultParent = option.parent != null ? option.parent : defaultParent;
+
         //物件生成
         if(option.type == ToastOption.Type.TEXT_TOAST)
         {

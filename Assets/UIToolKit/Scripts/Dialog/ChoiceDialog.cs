@@ -18,35 +18,56 @@ public class ChoiceDialog : Dialog
     {
         if (option != null)//有設置
         {
-            ResetDialog();//清空顯示設置
 
             messageText.text = option.message;
 
-            int btnAmount = option.btnSettings.Count;
-            if (btnAmount >= minAmount && btnAmount <= maxAmount)
+            //按鍵設置
+            if(option.btnSettings != null)
             {
-                Debug.LogErrorFormat("按鍵數量錯誤，需於{0}~{1}之間", minAmount, maxAmount);
-            }
-            else
-            {
-                //依序設置按鍵
-                for (int i = 0; i < btnAmount; i++)
+                //清空按鍵
+                foreach (Transform b in buttonZone)
                 {
-                    GameObject btn = Instantiate(buttonPrefab);
-                    btn.transform.SetParent(buttonZone.transform, false);
-                    //顏色
-                    btn.GetComponent<Image>().color = option.btnSettings[i].color;
-                    //內容
-                    btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
-                    //動作
-                    btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
+                    Destroy(b.gameObject);
+                }
+
+                int btnAmount = option.btnSettings.Count;
+                if (btnAmount >= minAmount && btnAmount <= maxAmount)
+                {
+                    Debug.LogErrorFormat("按鍵數量錯誤，需於{0}~{1}之間", minAmount, maxAmount);
+                }
+                else
+                {
+                    //依序設置按鍵
+                    for (int i = 0; i < btnAmount; i++)
+                    {
+                        GameObject btn = Instantiate(buttonPrefab);
+                        btn.transform.SetParent(buttonZone.transform, false);
+                        //顏色
+                        btn.GetComponent<Image>().color = option.btnSettings[i].color;
+                        //內容
+                        btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
+                        //動作
+                        btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
+                    }
                 }
             }
+            else //無按鍵設置
+            {
+                DefaultBtnSettings();
+            }
+            
         }
         else
         {
             Debug.LogErrorFormat("需進行視窗設置。");//需要DialogOption
         }
+    }
+
+    protected override void DefaultBtnSettings()
+    {
+        GameObject btn = Instantiate(buttonPrefab);
+        btn.transform.SetParent(buttonZone.transform, false);
+        btn.GetComponentInChildren<Text>().text = "確認";
     }
 
     /// <summary>

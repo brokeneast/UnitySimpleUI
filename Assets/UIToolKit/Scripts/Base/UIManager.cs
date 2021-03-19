@@ -192,7 +192,7 @@ public class UIManager : MonoBehaviour
     public void AddDialogManager()
     {
         dialogManager = gameObject.AddComponent<DialogManager>();
-        dialogManager.Init(canvas);
+        dialogManager.Init();
     }
 
     #endregion
@@ -205,7 +205,7 @@ public class UIManager : MonoBehaviour
     public void AddToastManager()
     {
         toastManager = gameObject.AddComponent<ToastManager>();
-        toastManager.Init(canvas);
+        toastManager.Init();
     }
 
     #endregion

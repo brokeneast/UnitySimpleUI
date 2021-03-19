@@ -17,12 +17,21 @@ public class AlertDialog : Dialog
     [SerializeField] GameObject buttonPrefab = null;
     [SerializeField] Transform buttonZone = null;//放置按鍵位置
 
+    /// <summary>
+    /// 彈跳視窗初始化，使用進階設定。
+    /// </summary>
+    public override void Init(DialogOption option)
+    {
+        this.option = option;
+        SpecificInit();
+    }
 
     /// <summary>
     /// 彈跳視窗初始化。
     /// </summary>
     public void Init(string message)
     {
+        DialogOption option = new DialogOption();
         option.message = message;
         SpecificInit();
     }
@@ -32,10 +41,9 @@ public class AlertDialog : Dialog
     /// </summary>
     public void Init(string message, UnityAction afterConfirm)
     {
-        option.message = message;
-        option.afterConfirm = afterConfirm;
-        SpecificInit();
+        Init(message, afterConfirm, null);
     }
+
 
     /// <summary>
     /// 初始化。設定關閉前動作，及確認後動作。
@@ -53,48 +61,58 @@ public class AlertDialog : Dialog
     /// </summary>
     protected override void SpecificInit()
     {
-        if (option == null)//看是不是有特別設置
+        //文字內容設置
+        messageText.text = option.message;
+        Debug.Log(option.type);
+        //按鍵配置
+        if (option.type == DialogOption.Type.ALERT_DIALOG)
         {
-            messageText.text = option.message;
-
-            confirmBtn.SetActive(true);//不管如何確認鍵都是必要的存在
-
-            if (option.afterCancel != null)
-            {
-                cancelBtn.SetActive(true);
-            }
-            else
-            {
-                cancelBtn.SetActive(false);
-            }
+            confirmBtn.SetActive(true);
+            cancelBtn.SetActive(false);
         }
-        else
+        else if (option.type == DialogOption.Type.OK_OR_CANCEL_DIALOG)
         {
-            ResetDialog();//清空顯示設置
-
-            messageText.text = option.message;
-
-            int btnAmount = option.btnSettings.Count;
-            if (btnAmount > 2 || btnAmount == 0)
+            confirmBtn.SetActive(true);
+            cancelBtn.SetActive(true);
+        }
+        else//按鍵配置Custom
+        {
+            //有按鍵配置
+            if (option.btnSettings != null)
             {
-                Debug.LogError("按鍵數量錯誤: " + btnAmount);
-            }
-            else
-            {
-                //依序設置按鍵
-                for(int i=0;i< btnAmount; i++)
+                //清除按鍵
+                foreach (Transform b in buttonZone)
                 {
-                    GameObject btn = Instantiate(buttonPrefab);
-                    btn.transform.SetParent(buttonZone.transform, false);
-                    //顏色
-                    btn.GetComponent<Image>().color = option.btnSettings[i].color;
-                    //內容
-                    btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
-                    //動作
-                    btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
+                    Destroy(b.gameObject);
+                }
+
+                int btnAmount = option.btnSettings.Count;
+                if (btnAmount > 2 || btnAmount == 0)
+                {
+                    Debug.LogError("按鍵數量錯誤: " + btnAmount);
+                }
+                else
+                {
+                    //依序設置按鍵
+                    for (int i = 0; i < btnAmount; i++)
+                    {
+                        GameObject btn = Instantiate(buttonPrefab);
+                        btn.transform.SetParent(buttonZone.transform, false);
+                        //顏色
+                        btn.GetComponent<Image>().color = option.btnSettings[i].color;
+                        //內容
+                        btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
+                        //動作
+                        btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
+                    }
                 }
             }
+            else
+            {
+                DefaultBtnSettings();
+            }
         }
+
     }
 
 
@@ -114,6 +132,13 @@ public class AlertDialog : Dialog
     {
         option.afterCancel?.Invoke();
         Destroy(gameObject);
+    }
+
+    protected override void DefaultBtnSettings()
+    {
+        //預設為單一確認鍵
+        //按鍵配置
+        confirmBtn.SetActive(true);
     }
 
     protected override void ResetDialog()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogManager : UIWidgetManager<Dialog, DialogOption>
 {
-    #region Dialog Prefab
+    #region Dialog Prefab Settings
     private readonly string alertDialogPath = "Assets/UIToolkit/Prefabs/Dialog/AlertDialog.prefab";
     private readonly string choiceDialogPath = "Assets/UIToolkit/Prefabs/Dialog/ChoiceDialog.prefab";
     private readonly string infoDialogPath = "Assets/UIToolkit/Prefabs/Dialog/InfoDialog.prefab";
@@ -14,7 +14,7 @@ public class DialogManager : UIWidgetManager<Dialog, DialogOption>
     [Tooltip("提醒視窗，提供警告、提醒等一般用途之彈跳視窗。")]
     GameObject _alertDialogPrefab;
 
-    public GameObject alertDialogPrefab
+    private GameObject alertDialogPrefab
     {
         get { return _alertDialogPrefab; }
         set
@@ -30,7 +30,7 @@ public class DialogManager : UIWidgetManager<Dialog, DialogOption>
     [Tooltip("選擇視窗，可增添按鈕選項，供使用者選擇。")]
     GameObject _choiceDialogPrefab;
 
-    public GameObject choiceDialogPrefab
+    private GameObject choiceDialogPrefab
     {
         get { return _choiceDialogPrefab; }
         set
@@ -46,7 +46,7 @@ public class DialogManager : UIWidgetManager<Dialog, DialogOption>
     [Tooltip("資訊視窗，可增添按鈕選項，供使用者選擇。")]
     GameObject _infoDialogPrefab;
 
-    public GameObject infoDialogPrefab
+    private GameObject infoDialogPrefab
     {
         get { return _infoDialogPrefab; }
         set
@@ -62,23 +62,20 @@ public class DialogManager : UIWidgetManager<Dialog, DialogOption>
     /// <summary>
     /// 初始化，並設定預設位置。
     /// </summary>
-    public override void Init(GameObject defaultParent)
+    public override void Init()
     {
         //初始化
         _alertDialogPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(alertDialogPath, typeof(GameObject));
         _choiceDialogPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(choiceDialogPath, typeof(GameObject));
         _infoDialogPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(infoDialogPath, typeof(GameObject));
-
-        //預設
-        this.defaultParent = defaultParent;
     }
 
     /// <summary>
-    /// 一般創建。預設為AlertDialog
+    /// 一般創建。預設為AlertDialog。
     /// </summary>
     public void Create(string msg)
     {
-        option = new DialogOption(DialogOption.Type.ALERT_DIALOG);
+        DialogOption option = new DialogOption();
         option.message = msg;
         Create(option);
     }
@@ -89,7 +86,9 @@ public class DialogManager : UIWidgetManager<Dialog, DialogOption>
     public override void Create(DialogOption option)
     {
         this.option = option;
+
         GameObject widget;
+        defaultParent = option.parent != null ? option.parent : defaultParent;
 
         //物件生成
         if (option.type == DialogOption.Type.CHOICE_DIALOG)
@@ -99,6 +98,10 @@ public class DialogManager : UIWidgetManager<Dialog, DialogOption>
         else if (option.type == DialogOption.Type.INFO_DIALOG)
         {
             widget = Instantiate(infoDialogPrefab, defaultParent.transform);
+        }
+        else if (option.type == DialogOption.Type.OK_OR_CANCEL_DIALOG)
+        {
+            widget = Instantiate(alertDialogPrefab, defaultParent.transform);
         }
         else
         {

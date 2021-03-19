@@ -29,9 +29,9 @@ UIManager Component > Context Menu > Add Dialog Manager
 * 調用方式
 
 * 目前支援類型
-- [x] 提醒
-- [x] 選擇
-- [x] 資訊
+	- [x] 提醒
+	- [x] 選擇
+	- [x] 資訊
 
 
 
@@ -47,8 +47,8 @@ UIManager Component > Context Menu > Add Toast Manager
 * 調用方式
 
 * 目前支援類型
-- [x] 消逝
-- [x] 一般
+	- [x] 消逝
+	- [x] 一般
 
 #### 讀取介面 Loading
 讀取視窗適用於異步情形。提示型將有讀取介面。

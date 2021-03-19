@@ -1,6 +1,6 @@
 ﻿public abstract class Dialog : UIWidget<DialogOption>
 {
-    protected DialogOption option;
+    protected DialogOption option = new DialogOption();
 
     /// <summary>
     /// 彈跳視窗初始化，使用進階設定。
@@ -17,9 +17,14 @@
     protected override void SpecificInit(){}
 
     /// <summary>
-    /// 清空視窗所有顯示設定，用於介面重整。
+    /// 清空視窗所有顯示設定。
     /// </summary>
     protected virtual void ResetDialog(){}
+
+    /// <summary>
+    /// 預設按鍵配置。
+    /// </summary>
+    protected abstract void DefaultBtnSettings();
 
     /// <summary>
     /// 關閉視窗。

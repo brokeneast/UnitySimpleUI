@@ -5,29 +5,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UIWidgetManager<T, T1> : MonoBehaviour
-    where T : UIWidget<T1>
-    where T1 : Option
+public abstract class UIWidgetManager<T, TOption> : MonoBehaviour
+    where T : UIWidget<TOption>
+    where TOption : Option
 {
-    protected T1 option;//設定選項
-    protected GameObject defaultParent;//元件放置位置
-    protected List<GameObject> widgetList;//受管理之UI元件
+    public GameObject defaultParent;//元件放置位置
+    protected TOption option;//設定選項
+    protected List<GameObject> widgetList = new List<GameObject>();//受管理之UI元件
 
     private GameObject currentWidget;//目前產生的UI元件
 
     /// <summary>
     /// 初始化於對應位置。
     /// </summary>
-    public virtual void Init(GameObject defaultParent)
-    {
-        this.defaultParent = defaultParent;
-        widgetList = new List<GameObject>();
-    }
+    public virtual void Init(){}
 
     /// <summary>
     /// 創建項目UI工具。
     /// </summary>
-    public virtual void Create(T1 option)
+    public virtual void Create(TOption option)
     {
         this.option = option;
         WidgetInit(null);//需放入欲初始化的UI物件
