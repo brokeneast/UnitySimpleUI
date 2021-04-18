@@ -31,7 +31,7 @@
     /// </summary>
     public override void Cancel()
     {
-        option.afterCancel?.Invoke();
+        option.onCancel?.Invoke(UIResult.Ok());
         Destroy(gameObject);
     }
 

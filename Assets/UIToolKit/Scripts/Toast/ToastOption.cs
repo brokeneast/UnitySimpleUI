@@ -3,7 +3,7 @@
  */
 using UnityEngine.Events;
 
-public class ToastOption : Option
+public class ToastOption : UIOption
 {
     public enum Type {TEXT_TOAST,FADING_TOAST};
     public Type type { get; private set; }

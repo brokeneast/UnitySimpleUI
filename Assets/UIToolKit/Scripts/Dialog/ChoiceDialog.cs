@@ -8,7 +8,7 @@ public class ChoiceDialog : Dialog
 {
     [Header("Settings")]
     [SerializeField] Text messageText = null;
-    [SerializeField] GameObject buttonPrefab = null;//按鍵Prefab
+    [SerializeField] GameObject buttonPrefab = null;//預設選擇按鍵
     [SerializeField] Transform buttonZone = null;//放置按鍵位置
 
     private const int maxAmount = 4;
@@ -31,7 +31,7 @@ public class ChoiceDialog : Dialog
                 }
 
                 int btnAmount = option.btnSettings.Count;
-                if (btnAmount >= minAmount && btnAmount <= maxAmount)
+                if (btnAmount < minAmount && btnAmount > maxAmount)
                 {
                     Debug.LogErrorFormat("按鍵數量錯誤，需於{0}~{1}之間", minAmount, maxAmount);
                 }
@@ -47,7 +47,11 @@ public class ChoiceDialog : Dialog
                         //內容
                         btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
                         //動作
-                        btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
+                        if (option.btnSettings[i].onClick != null)
+                        {
+                            btn.GetComponent<Button>().onClick.AddListener(()=> { option.btnSettings[i].onClick.Invoke(); });
+                        }
+                        btn.GetComponent<Button>().onClick.AddListener(Cancel);   
                     }
                 }
             }
@@ -65,17 +69,25 @@ public class ChoiceDialog : Dialog
 
     protected override void DefaultBtnSettings()
     {
-        GameObject btn = Instantiate(buttonPrefab);
-        btn.transform.SetParent(buttonZone.transform, false);
-        btn.GetComponentInChildren<Text>().text = "確認";
+        
+    }
+
+
+    /// <summary>
+    /// 確認。此處預設為選項1。
+    /// </summary>
+    public void Confirm()
+    {
+        option.onOk?.Invoke(UIResult.Ok());
+        Destroy(gameObject);
     }
 
     /// <summary>
-    /// 關閉視窗。
+    /// 關閉視窗。此處預設為選項2。
     /// </summary>
     public override void Cancel()
     {
-        option.afterCancel?.Invoke();
+        option.onCancel?.Invoke(UIResult.Failed());
         Destroy(gameObject);
     }
 

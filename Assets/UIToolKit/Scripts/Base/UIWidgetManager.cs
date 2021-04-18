@@ -7,7 +7,7 @@ using UnityEngine;
 
 public abstract class UIWidgetManager<T, TOption> : MonoBehaviour
     where T : UIWidget<TOption>
-    where TOption : Option
+    where TOption : UIOption
 {
     public GameObject defaultParent;//元件放置位置
     protected TOption option;//設定選項

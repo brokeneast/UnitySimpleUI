@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UIWidget<T> : MonoBehaviour
-    where T : Option
+    where T : UIOption
 {
     /// <summary>
     /// 初始化。

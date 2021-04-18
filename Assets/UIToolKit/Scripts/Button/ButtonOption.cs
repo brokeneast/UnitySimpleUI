@@ -5,22 +5,48 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ButtonOption : Option
+public class ButtonOption : UIOption
 {
-    public UnityAction afterClick;//點擊事件
-    public string text { get; private set; }//文字內容
-    public Color color = Color.white; //按鍵底色
+    public string text { get; private set; }
+    /// <summary>
+    /// 按鍵底色。
+    /// </summary>
+    public Color color = Color.white;
 
-    public ButtonOption(string text, UnityAction afterClick)
+    /// <summary>
+    /// 點擊後挾帶資訊。
+    /// </summary>
+    public UICallbackWithData onClickAndSend { get; protected set; }
+
+    public ButtonOption(string text)
     {
-        this.afterClick = afterClick;
         this.text = text;
     }
 
-    public ButtonOption(string text, UnityAction afterClick, Color color)
+    
+    public ButtonOption(string text, UICallback callback)
     {
-        this.afterClick = afterClick;
+        this.text = text;
+        onClick = callback;
+    }
+
+    public ButtonOption(string text, Color color, UICallback callback)
+    {
         this.text = text;
         this.color = color;
+        onClick = callback;
+    }
+
+    public ButtonOption(string text, UICallbackWithData callback)
+    {
+        this.text = text;
+        onClickAndSend = callback;
+    }
+
+    public ButtonOption(string text, Color color, UICallbackWithData callback)
+    {
+        this.text = text;
+        this.color = color;
+        onClickAndSend = callback;
     }
 }

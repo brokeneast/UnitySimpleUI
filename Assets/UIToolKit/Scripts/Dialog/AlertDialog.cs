@@ -39,20 +39,20 @@ public class AlertDialog : Dialog
     /// <summary>
     /// 初始化。設定確認後動作。
     /// </summary>
-    public void Init(string message, UnityAction afterConfirm)
+    public void Init(string message, UIOption.UICallbackWithData onOk)
     {
-        Init(message, afterConfirm, null);
+        Init(message, onOk, null);
     }
 
 
     /// <summary>
     /// 初始化。設定關閉前動作，及確認後動作。
     /// </summary>
-    public void Init(string message, UnityAction afterConfirm, UnityAction afterCancel)
+    public void Init(string message, UIOption.UICallbackWithData onOk, UIOption.UICallbackWithData onCancel)
     {
         option.message = message;
-        option.afterConfirm = afterConfirm;
-        option.afterCancel = afterCancel;
+        option.SetOkCallback(onOk);
+        option.SetCancelCallback(onCancel);
         SpecificInit();
     }
 
@@ -103,7 +103,11 @@ public class AlertDialog : Dialog
                         //內容
                         btn.GetComponentInChildren<Text>().text = option.btnSettings[i].text;
                         //動作
-                        btn.GetComponent<Button>().onClick.AddListener(option.btnSettings[i].afterClick);
+                        if (option.btnSettings[i].onClick != null)
+                        {
+                            btn.GetComponent<Button>().onClick.AddListener(()=> { option.btnSettings[i].onClick.Invoke();});
+                        }
+                        btn.GetComponent<Button>().onClick.AddListener(Cancel);
                     }
                 }
             }
@@ -121,7 +125,7 @@ public class AlertDialog : Dialog
     /// </summary>
     public void Confirm()
     {
-        option.afterConfirm?.Invoke();
+        option.onOk?.Invoke(UIResult.Ok());
         Destroy(gameObject);
     }
 
@@ -130,7 +134,7 @@ public class AlertDialog : Dialog
     /// </summary>
     public override void Cancel()
     {
-        option.afterCancel?.Invoke();
+        option.onCancel?.Invoke(UIResult.Failed());
         Destroy(gameObject);
     }
 
@@ -144,8 +148,8 @@ public class AlertDialog : Dialog
     protected override void ResetDialog()
     {
         messageText.text = "";
-        option.afterConfirm = null;
-        option.afterCancel = null;
+        option.SetOkCallback(null);
+        option.SetCancelCallback(null);
         //清除按鍵
         foreach (Transform b in buttonZone)
         {

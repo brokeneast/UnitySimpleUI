@@ -1,10 +1,11 @@
 ﻿/*
  * 彈跳視窗進階設定選項。
  */
+using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class DialogOption : Option
+public class DialogOption : UIOption
 {
     public enum Type { ALERT_DIALOG, OK_OR_CANCEL_DIALOG, CHOICE_DIALOG, INFO_DIALOG};
     public Type type;
@@ -22,11 +23,12 @@ public class DialogOption : Option
     /// <summary>
     /// 點擊確認後之動作。
     /// </summary>
-    public UnityAction afterConfirm = null;
+    public UICallbackWithData onOk { get; protected set; }
+
     /// <summary>
     /// 取消或關閉視窗後之動作。
     /// </summary>
-    public UnityAction afterCancel = null;
+    public UICallbackWithData onCancel { get; protected set; }
 
     public DialogOption()
     {
@@ -57,9 +59,28 @@ public class DialogOption : Option
     /// <summary>
     /// 根據按鍵做細部設定，設定buttons將清空原本Type所定義的按鍵。
     /// </summary>
-    public DialogOption(Type type, List<ButtonOption> buttons)
+    public DialogOption(Type type, string msg, List<ButtonOption> buttons)
     {
         this.type = type;
+        message = msg;
         btnSettings = buttons;
     }
+
+    /// <summary>
+    /// 點擊確認後之委派動作。
+    /// </summary>
+    public void SetOkCallback(UICallbackWithData callback)
+    {
+        onOk = callback;
+    }
+
+
+    /// <summary>
+    /// 點擊取消後之委派動作。
+    /// </summary>
+    public void SetCancelCallback(UICallbackWithData callback)
+    {
+        onOk = callback;
+    }
+
 }
