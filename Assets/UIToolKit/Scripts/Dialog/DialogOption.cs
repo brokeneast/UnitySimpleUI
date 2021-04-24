@@ -23,12 +23,12 @@ public class DialogOption : UIOption
     /// <summary>
     /// 點擊確認後之動作。
     /// </summary>
-    public UICallbackWithData onOk { get; protected set; }
+    public UICallback onOk { get; protected set; }
 
     /// <summary>
     /// 取消或關閉視窗後之動作。
     /// </summary>
-    public UICallbackWithData onCancel { get; protected set; }
+    public UICallback onCancel { get; protected set; }
 
     public DialogOption()
     {
@@ -39,10 +39,10 @@ public class DialogOption : UIOption
     /// 一般提醒視窗。
     /// </summary>
     /// <param name="msg"></param>
-    public DialogOption(string msg)
+    public DialogOption(string message)
     {
         type = Type.ALERT_DIALOG;
-        message = msg;
+        this.message = message;
     }
 
     public DialogOption(Type type)
@@ -50,26 +50,26 @@ public class DialogOption : UIOption
         this.type = type;
     }
 
-    public DialogOption(Type type, string msg)
+    public DialogOption(Type type, string message)
     {
         this.type = type;
-        message = msg;
+        this.message = message;
     }
 
     /// <summary>
     /// 根據按鍵做細部設定，設定buttons將清空原本Type所定義的按鍵。
     /// </summary>
-    public DialogOption(Type type, string msg, List<ButtonOption> buttons)
+    public DialogOption(Type type, string message, List<ButtonOption> buttons)
     {
         this.type = type;
-        message = msg;
+        this.message = message;
         btnSettings = buttons;
     }
 
     /// <summary>
     /// 點擊確認後之委派動作。
     /// </summary>
-    public void SetOkCallback(UICallbackWithData callback)
+    public void SetOkCallback(UICallback callback)
     {
         onOk = callback;
     }
@@ -78,7 +78,7 @@ public class DialogOption : UIOption
     /// <summary>
     /// 點擊取消後之委派動作。
     /// </summary>
-    public void SetCancelCallback(UICallbackWithData callback)
+    public void SetCancelCallback(UICallback callback)
     {
         onOk = callback;
     }

@@ -39,7 +39,7 @@ public class AlertDialog : Dialog
     /// <summary>
     /// 初始化。設定確認後動作。
     /// </summary>
-    public void Init(string message, UIOption.UICallbackWithData onOk)
+    public void Init(string message, UIOption.UICallback onOk)
     {
         Init(message, onOk, null);
     }
@@ -48,7 +48,7 @@ public class AlertDialog : Dialog
     /// <summary>
     /// 初始化。設定關閉前動作，及確認後動作。
     /// </summary>
-    public void Init(string message, UIOption.UICallbackWithData onOk, UIOption.UICallbackWithData onCancel)
+    public void Init(string message, UIOption.UICallback onOk, UIOption.UICallback onCancel)
     {
         option.message = message;
         option.SetOkCallback(onOk);
@@ -105,9 +105,13 @@ public class AlertDialog : Dialog
                         //動作
                         if (option.btnSettings[i].onClick != null)
                         {
-                            btn.GetComponent<Button>().onClick.AddListener(()=> { option.btnSettings[i].onClick.Invoke();});
+                            UIOption.UICallback callback = option.btnSettings[i].onClick;
+                            btn.GetComponent<Button>().onClick.AddListener(() => { callback.Invoke(UIResult.Memo("")); });
                         }
-                        btn.GetComponent<Button>().onClick.AddListener(Cancel);
+                        else
+                        {
+                            btn.GetComponent<Button>().onClick.AddListener(Cancel);
+                        }
                     }
                 }
             }
@@ -119,6 +123,7 @@ public class AlertDialog : Dialog
 
     }
 
+    
 
     /// <summary>
     /// 確認。

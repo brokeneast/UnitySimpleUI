@@ -55,16 +55,16 @@ public class DialogSampleController : MonoBehaviour
         //按鍵客制設置
         List<ButtonOption> btnOptions = new List<ButtonOption>();
 
-        ButtonOption o1 = new ButtonOption("Red");
+        ButtonOption o1 = new ButtonOption("Red", new Color32(255, 153, 153, 255), ChoiceResultAlertDialog);
         o1.color = new Color32(255,153,153,255);
         btnOptions.Add(o1);
 
-        ButtonOption o2 = new ButtonOption("Blue");
-        o2.color = new Color32(153, 218, 255, 255);
+        ButtonOption o2 = new ButtonOption("Blue", new Color32(153, 218, 255, 255), ChoiceResultAlertDialog);
+
         btnOptions.Add(o2);
 
-        ButtonOption o3 = new ButtonOption("Green");
-        o3.color = new Color32(153, 255, 194, 255);
+        ButtonOption o3 = new ButtonOption("Green", new Color32(153, 255, 194, 255), ChoiceResultAlertDialog);
+  
         btnOptions.Add(o3);
 
 
@@ -73,9 +73,9 @@ public class DialogSampleController : MonoBehaviour
         dialogManager.Create(option);
     }
 
-    private void ChoiceResultAlertDialog()
+    private void ChoiceResultAlertDialog(UIResult r)
     {
         //預設為提示警告視窗。
-        dialogManager.Create("好選擇!");
+        dialogManager.Create("");
     }
 }

@@ -49,9 +49,13 @@ public class ChoiceDialog : Dialog
                         //動作
                         if (option.btnSettings[i].onClick != null)
                         {
-                            btn.GetComponent<Button>().onClick.AddListener(()=> { option.btnSettings[i].onClick.Invoke(); });
+                            UIOption.UICallback callback = option.btnSettings[i].onClick;
+                            btn.GetComponent<Button>().onClick.AddListener(()=> { callback.Invoke(UIResult.Memo("")); });
                         }
-                        btn.GetComponent<Button>().onClick.AddListener(Cancel);   
+                        else
+                        {
+                            btn.GetComponent<Button>().onClick.AddListener(Cancel);
+                        }
                     }
                 }
             }

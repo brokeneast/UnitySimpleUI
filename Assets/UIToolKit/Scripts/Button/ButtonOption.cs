@@ -16,7 +16,7 @@ public class ButtonOption : UIOption
     /// <summary>
     /// 點擊後挾帶資訊。
     /// </summary>
-    public UICallbackWithData onClickAndSend { get; protected set; }
+    public UICallback onClickAndSend { get; protected set; }
 
     public ButtonOption(string text)
     {
@@ -35,18 +35,5 @@ public class ButtonOption : UIOption
         this.text = text;
         this.color = color;
         onClick = callback;
-    }
-
-    public ButtonOption(string text, UICallbackWithData callback)
-    {
-        this.text = text;
-        onClickAndSend = callback;
-    }
-
-    public ButtonOption(string text, Color color, UICallbackWithData callback)
-    {
-        this.text = text;
-        this.color = color;
-        onClickAndSend = callback;
     }
 }

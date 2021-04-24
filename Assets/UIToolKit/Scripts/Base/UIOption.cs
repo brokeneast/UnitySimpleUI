@@ -18,13 +18,7 @@ public abstract class UIOption
     /// <summary>
     /// UI互動委派。
     /// </summary>
-    public delegate void UICallback();
-
-    /// <summary>
-    /// UI互動委派並帶結果。
-    /// </summary>
-    public delegate void UICallbackWithData(UIResult result);
-
+    public delegate void UICallback(UIResult result);
 
     /// <summary>
     /// 與該UI互動後，所委派之動作，需挾帶UI互動結果。

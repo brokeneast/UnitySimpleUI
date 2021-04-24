@@ -1,90 +1,101 @@
 # Unity Simple UI
-����Unity�M�׷|�ϥΨ쪺�@�ǹC���t��UI�d�ҹ�{�C
+平時Unity專案會使用到的一些遊戲系統UI範例實現。
 
-### �ϥΤ覡
-----
-#### ��l��
-1. �s�WCanvas
-��Hierarchy�k��W�KCanvas�C
-2. �s�WUIManager
+## 介面管理員 UIManager
+
++ 說明
+透過它管理及調用其他動態介面模組。
+
+* 初始化
+ 1. 新增Canvas
+於Hierarchy右鍵增添Canvas。
+
+ 2. 新增UIManager
 Menu > GameObject > UI Toolkit > UI Manager
-3. �̷ӻݨD�s�W��LUI�ҲաC
-UIManager Component > Context Menu > Add �ҲզW��
 
-### �����޲z�� UIManager
-----
-�t�d�ե�UI�C�z�L���޲z��LUI�ҲաC
+ 3. 依照需求新增其他UI模組。
+UIManager Component > Context Menu > Add 模組名稱
 
-#### �u������ Dialog
+## 介面工具 UIWidget
+分為介面模組及小元件。介面模組可由介面管理員直接控制，而小元件通常為構成模組的獨立部件。
 
-+ ����
-�u���������㭱���������A�N���_�ϥΪ̬y�{���j��ܡC
-	+ ��������: �@���ϥΪ̰ʧ@�T�{�δ��ܡA�̦h����ؿ�ܡA�q�`���T�{�Y�����A�A�X�B�Φb�t�δ��ܡBĵ�i���C
-	+ ��ܵ���: ���h��@�A�i�Ȩ�ƫ��䤺�e�ξާ@�C
-	+ ��T����: �A�X�B�Ω�j�q��r��T�A�䤺�e�N�����u�ʱ��C�Ҧp:���p�v�n���������C
+### 介面模組 UIModule
+可被介面管理員直接呼叫使用。
 
-* ��l��
+#### 彈跳視窗 Dialog
+
++ 說明
+彈跳視窗為整面提醒視窗，將打斷使用者流程的強制提示。
+	+ 提醒視窗: 作為使用者動作確認或提示，最多為兩種選擇，通常為確認即取消，適合運用在系統提示、警告等。
+	+ 選擇視窗: 為多選一，可客制化按鍵內容及操作。
+	+ 資訊視窗: 適合運用於大量文字資訊，其內容將附有滾動條。例如:隱私權聲明視窗等。
+
+* 初始化
 UIManager Component > Context Menu > Add Dialog Manager
 
-* �եΤ覡
+* 調用方式
 
-* �ثe�䴩����
-	- [x] ����
-	- [x] ���
-	- [x] ��T
+* 目前支援類型
+	- [x] 提醒
+	- [x] 選擇
+	- [x] 資訊
 
 
 
-#### ���ܤ��� Toast
-+ ����
-�A�Ω�²�檺���ܳq���A���v�T�ϥΪ����笰��h�C
-	+ ���u�R�q: �N��@�q�ɶ���۰ʮ��u�H�X�C
-	+ �@��R�q: �@��R�q���ܡA�ݦۦ�R���C
+#### 提示介面 Toast
++ 說明
+適用於簡單的提示通知，不影響使用者體驗為原則。
+	+ 消逝吐司: 將於一段時間後自動消逝淡出。
+	+ 一般吐司: 一般吐司提示，需自行刪除。
 
-* ��l��
+* 初始化
 UIManager Component > Context Menu > Add Toast Manager
 
-* �եΤ覡
+* 調用方式
 
-* �ثe�䴩����
-	- [x] ���u
-	- [x] �@��
+* 目前支援類型
+	- [x] 消逝
+	- [x] 一般
 
-#### Ū������ Loading
-Ū�������A�Ω󲧨B���ΡC���ܫ��N��Ū�������C
-- [ ] �z��
-- [ ] ����
-- [ ] Ū����
-- [ ] ����Ū��
+#### 讀取介面 Loading
++ 說明
+讀取視窗適用於異步情形。提示型將有讀取介面。
 
-### �p�u��
-----
-�W�ߪ�UI����C
-- [ ] ��J
-    - [ ] ��J�榡�ˬd
-- [ ] �}��
-- [ ] ����
+* 初始化
 
+* 調用方式
 
-### �ĪG
-----
-�������UUI���ĪG�C
-#### ���ʮĪG Interaction Effects
-�ϥΪ̻PUI�������ʮɮM�Ϊ��ĪG�C
-- [ ] �I���ĪG
-    - [ ] �Y��
-    - [ ] �m���Ϥ�
+* 目前支援類型
+	- [ ] 透明
+	- [ ] 提示
+	- [ ] 讀取條
+	- [ ] 環形讀取
 
-#### ��ı�ĪG Visual Effects
-�M�Ω󤶭��ϧΤW����ı�ĪG�C
-- [ ] �i��
+### 小元件 UIComponent
+構成模組所使用之獨立小元件。
+#### 按鈕
+#### 輸入框
+#### 開關
+#### 標籤
 
-### �ɥR
-----
-#### �ϥΪ���
+## 效果
+做為輔助UI的效果。
+### 互動效果 InteractionEffects
+使用者與UI介面互動時套用的效果。
+- [ ] 點擊效果
+    - [ ] 縮放
+    - [ ] 置換圖片
+
+### 視覺效果 VisualEffects
+套用於介面圖形上的視覺效果。
+- [ ] 波動
+
+## 補充
+
+### 使用版本
 Unity 2019.4(LTS)
-#### �W��
-UI�N�|�H�ۿù���Ҷi��վ�C
-��V�䴩 4:3 �� 21:9 ��ҡC(Canvas�ѦҤؤo 1280 X 720)
-���V�䴩 3:4 �� 9:21 ��ҡC(Canvas�ѦҤؤo 720 X 1280)
+### 規格
+UI將會隨著螢幕比例進行調整。
+橫向支援 4:3 至 21:9 比例。(Canvas參考尺寸 1280 X 720)
+直向支援 3:4 至 9:21 比例。(Canvas參考尺寸 720 X 1280)
 
