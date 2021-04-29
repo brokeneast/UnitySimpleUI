@@ -106,7 +106,8 @@ public class AlertDialog : Dialog
                         if (option.btnSettings[i].onClick != null)
                         {
                             UIOption.UICallback callback = option.btnSettings[i].onClick;
-                            btn.GetComponent<Button>().onClick.AddListener(() => { callback.Invoke(UIResult.Memo("")); });
+                            btn.GetComponent<Button>().onClick.AddListener(() => { callback.Invoke(UIResult.Memo("")); Cancel(); });
+                            Cancel();
                         }
                         else
                         {

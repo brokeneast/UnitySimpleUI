@@ -76,6 +76,6 @@ public class DialogSampleController : MonoBehaviour
     private void ChoiceResultAlertDialog(UIResult r)
     {
         //預設為提示警告視窗。
-        dialogManager.Create("");
+        dialogManager.Create(string.Format("好選擇! 選項{0}",r.message));
     }
 }

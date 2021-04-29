@@ -10,6 +10,11 @@ public abstract class UIOption
     /// </summary>
     public GameObject parent { get; private set; }
 
+    /// <summary>
+    /// UI描述，可用來表其狀態及意義。
+    /// </summary>
+    public string description { get; private set; }
+
     public void SetParent(GameObject p)
     {
         parent = p;

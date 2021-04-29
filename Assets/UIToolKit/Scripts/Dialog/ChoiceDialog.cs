@@ -41,6 +41,7 @@ public class ChoiceDialog : Dialog
                     for (int i = 0; i < btnAmount; i++)
                     {
                         GameObject btn = Instantiate(buttonPrefab);
+                        btn.name = (i+1).ToString();
                         btn.transform.SetParent(buttonZone.transform, false);
                         //顏色
                         btn.GetComponent<Image>().color = option.btnSettings[i].color;
@@ -50,7 +51,10 @@ public class ChoiceDialog : Dialog
                         if (option.btnSettings[i].onClick != null)
                         {
                             UIOption.UICallback callback = option.btnSettings[i].onClick;
-                            btn.GetComponent<Button>().onClick.AddListener(()=> { callback.Invoke(UIResult.Memo("")); });
+                            btn.GetComponent<Button>().onClick.AddListener(()=> {
+                                callback.Invoke(UIResult.Memo(btn.name));
+                                Cancel();
+                            });
                         }
                         else
                         {

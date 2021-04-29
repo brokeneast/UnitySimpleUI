@@ -1,4 +1,4 @@
-# Unity Simple UI
+﻿# Unity Simple UI
 平時Unity專案會使用到的一些遊戲系統UI範例實現。
 
 ## 介面管理員 UIManager
@@ -11,16 +11,16 @@
 於Hierarchy右鍵增添Canvas。
 
  2. 新增UIManager
-Menu > GameObject > UI Toolkit > UI Manager
+`Menu -> GameObject -> UI Toolkit -> UI Manager`
 
- 3. 依照需求新增其他UI模組。
-UIManager Component > Context Menu > Add 模組名稱
+ 3. 依照需求新增其他欲動態控制之UI模組。
+`UIManager Component > Context Menu > Add 模組名稱`
 
 ## 介面工具 UIWidget
-分為介面模組及小元件。介面模組可由介面管理員直接控制，而小元件通常為構成模組的獨立部件。
+能夠以設置`UIOption`進行動態配置的物件。
 
-### 介面模組 UIModule
-可被介面管理員直接呼叫使用。
+### 介面模組
+可被介面管理員`UIManager`直接動態管理的介面工具。
 
 #### 彈跳視窗 Dialog
 
@@ -31,7 +31,7 @@ UIManager Component > Context Menu > Add 模組名稱
 	+ 資訊視窗: 適合運用於大量文字資訊，其內容將附有滾動條。例如:隱私權聲明視窗等。
 
 * 初始化
-UIManager Component > Context Menu > Add Dialog Manager
+`UIManager Component > Context Menu > Add Dialog Manager`
 
 * 調用方式
 
@@ -49,7 +49,7 @@ UIManager Component > Context Menu > Add Dialog Manager
 	+ 一般吐司: 一般吐司提示，需自行刪除。
 
 * 初始化
-UIManager Component > Context Menu > Add Toast Manager
+`UIManager Component > Context Menu > Add Toast Manager`
 
 * 調用方式
 
@@ -71,12 +71,11 @@ UIManager Component > Context Menu > Add Toast Manager
 	- [ ] 讀取條
 	- [ ] 環形讀取
 
-### 小元件 UIComponent
-構成模組所使用之獨立小元件。
-#### 按鈕
-#### 輸入框
-#### 開關
-#### 標籤
+## 小元件 UIComponent
+非動態生成或設置的元件，為另外設計之預置物件。
+### 輸入框
+### 開關
+### 標籤
 
 ## 效果
 做為輔助UI的效果。
@@ -95,7 +94,7 @@ UIManager Component > Context Menu > Add Toast Manager
 ### 使用版本
 Unity 2019.4(LTS)
 ### 規格
-UI將會隨著螢幕比例進行調整。
+程式執行時，UI將會隨著螢幕比例進行調整。
 橫向支援 4:3 至 21:9 比例。(Canvas參考尺寸 1280 X 720)
 直向支援 3:4 至 9:21 比例。(Canvas參考尺寸 720 X 1280)
 
