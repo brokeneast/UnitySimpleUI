@@ -80,7 +80,7 @@ public class DialogOption : UIOption
     /// </summary>
     public void SetCancelCallback(UICallback callback)
     {
-        onOk = callback;
+        onCancel = callback;
     }
 
 }
