@@ -1,11 +1,8 @@
-﻿﻿# Unity Simple UI
+﻿# Unity Simple UI
 平時Unity專案會使用到的一些遊戲系統UI範例實現。
 
 
-
-[========]
-
-## 介面工具 UIWidget
+## 介面工具
 > 能夠以設置`UIOption`進行動態配置的物件。
 
 ### 動態生成介面模組
@@ -24,7 +21,7 @@
 `Menu -> GameObject -> UI Toolkit -> UI Manager`
 
  3. 依照需求新增其他欲動態控制之UI模組。
-`UIManager Component > Context Menu > Add 模組名稱`
+`UIManager Component > Context Menu > Add 動態模組名稱`
 
 #### 彈跳視窗 Dialog
 
@@ -78,8 +75,22 @@
 ### 非動態生成介面模組
 
 #### 頁籤 Tabs
++ 說明
+從多頁籤擇一後，更新所有頁籤之狀態，並觸發動作。
 
-[========]
+* 初始化
+1. 創建一物件作為其他頁籤之父元件，並於該物件加入UITabsGroup元件。
+`Add Component > UITabsGroup`
+2. 於父物件中加入子物件作為頁籤，並於該物件加入UITab元件。
+`Add Component > UITab`
+
+* 範例資源位置
+`Assets > Prefabs > Tabs`
+
+* 目前支援類型
+	- [x] 頁籤
+	- [ ] 頁籤與內容
+
 
 ## 小元件 UIComponent
 > 其他另行設計之預置物件。
@@ -87,7 +98,7 @@
 ### 輸入框
 ### 開關
 ### 標籤
-[========]
+
 
 ## 效果
 > 做為輔助UI的效果。
@@ -96,9 +107,8 @@
 > 使用者與UI介面互動時套用的效果。
 
 * 目前支援類型
-- [ ] 點擊效果
-    - [ ] 縮放
-    - [ ] 置換圖片
+	- [ ] 縮放
+	- [ ] 置換圖片
 
 ### 視覺效果 VisualEffects
 > 可套用於介面圖形上的視覺效果。
@@ -107,11 +117,11 @@
 
 * 範例資源位置
 `Assets > Prefabs > VisualEffects`
-* 目前支援類型
-- [x] 模糊 Blur
-- [ ] 波動
 
-[========]
+* 目前支援類型
+	- [x] 模糊 Blur
+	- [ ] 波動
+
 
 ## 補充
 
