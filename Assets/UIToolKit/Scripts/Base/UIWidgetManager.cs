@@ -1,4 +1,4 @@
-﻿/*
+/*
  * UI小工具的管理類。
  */
 using System;
@@ -9,7 +9,7 @@ public abstract class UIWidgetManager<T, TOption> : MonoBehaviour
     where T : UIWidget<TOption>
     where TOption : UIOption
 {
-    public GameObject defaultParent;//元件放置位置
+    public GameObject defaultParent { get; protected set; }//元件動態產生後放置位置
     protected TOption option;//設定選項
     protected List<GameObject> widgetList = new List<GameObject>();//受管理之UI元件
 
