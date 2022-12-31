@@ -23,7 +23,7 @@ public abstract class Toast : UIWidget<ToastOption>
     /// <summary>
     /// 關閉。
     /// </summary>
-    public override void Cancel()
+    public override void Delete()
     {
         option.afterCancel?.Invoke();
         Destroy(gameObject);

@@ -13,6 +13,10 @@ public class TabOption : UIOption
     /// </summary>
     public int index { get; protected set; }
 
+    /// <summary>
+    /// Tab名稱，將顯示於Tab上。
+    /// </summary>
+    public string name = "Tab";
 
     /// <summary>
     /// 必須有父元件且包含TabsGroup元件，及索引值方能初始化。
@@ -31,5 +35,4 @@ public class TabOption : UIOption
     {
         this.index = index;
     }
-
 }

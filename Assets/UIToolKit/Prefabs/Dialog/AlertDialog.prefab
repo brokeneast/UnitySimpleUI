@@ -124,8 +124,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6148546622218574649}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Cancel
+        m_TargetAssemblyTypeName: AlertDialog, Assembly-CSharp
+        m_MethodName: Delete
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

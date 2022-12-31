@@ -9,11 +9,11 @@ public abstract class UIWidgetManager<T, TOption> : MonoBehaviour
     where T : UIWidget<TOption>
     where TOption : UIOption
 {
-    public GameObject defaultParent { get; protected set; }//元件動態產生後放置位置
+    [SerializeField] protected GameObject defaultParent;//元件動態產生後放置位置
     protected TOption option;//設定選項
     protected List<GameObject> widgetList = new List<GameObject>();//受管理之UI元件
 
-    private GameObject currentWidget;//目前產生的UI元件
+    protected GameObject currentWidget;//目前產生的UI元件
 
     /// <summary>
     /// 初始化於對應位置。
@@ -65,7 +65,7 @@ public abstract class UIWidgetManager<T, TOption> : MonoBehaviour
     /// <summary>
     /// 關閉所有該管理所產生的介面。
     /// </summary>
-    public virtual void AllCancel()
+    public virtual void DeleteAll()
     {
         foreach(GameObject w in widgetList)
         {

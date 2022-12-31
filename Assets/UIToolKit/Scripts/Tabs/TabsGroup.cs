@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 [ExecuteInEditMode]
 public class TabsGroup : UIWidgetManager<Tab, TabOption>
@@ -27,9 +28,24 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
     #endregion
 
     /// <summary>
+    /// 排版模式。
+    /// VERTICAL: 垂直
+    /// HORIZONTAL: 水平
+    /// NONE: 無
+    /// </summary>
+    public enum Layout {VERTICAL, HORIZONTAL, NONE};
+    public Layout layout {get; protected set;}
+
+    /// <summary>
     /// 目前有被註冊到的Tab。
     /// </summary>
-    public List<Tab> tabs = new List<Tab>();
+    public List<Tab> tabs { get; protected set; }
+
+    private void Awake()
+    {
+        tabs = new List<Tab>();
+        Init();
+    }
 
     /// <summary>
     /// 初始化，並設定預設位置。
@@ -38,15 +54,18 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
     {
         //初始化
         _tabPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(tabPath, typeof(GameObject));
+        layout = Layout.NONE;
     }
 
     private void Update()
     {
-        if(transform.childCount!= tabs.Count)
+        //若底下帶有Tab元件的物件數量與註冊不一，則重新註冊。
+        if (transform.GetComponentsInChildren<Tab>().Length != tabs.Count)
         {
             Refresh();
         }
     }
+
 
     /// <summary>
     /// 加入Tab至該元件下。
@@ -56,42 +75,6 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
         TabOption option = new TabOption(this, tabs.Count);
         Create(option);
     }
-
-    /// <summary>
-    /// 根據Index刪除Tab。
-    /// </summary>
-    public void DeleteTab(int index)
-    {
-        tabs.RemoveAt(index);
-        UpdateTabsIndex();
-    }
-
-
-    /// <summary>
-    /// 根據目前該Group下的子Tabs重新編Index。
-    /// </summary>
-    private void UpdateTabsIndex()
-    {
-        for (int i = 0; i < tabs.Count; i++)
-        {
-            tabs[i].option.SetIndex(i);
-        }
-    }
-
-    /// <summary>
-    /// 根據該物件下的子物件(包含Tab元件)，重新註冊。
-    /// 主要用在未按正常程序加入Tab的情形。
-    /// </summary>
-    public void Refresh()
-    {
-        tabs.Clear();
-        Tab[] find = GetComponentsInChildren<Tab>();
-        foreach (Tab t in find)
-        {
-            tabs.Add(t);
-        }
-    }
-
 
     /// <summary>
     /// 進階創建。
@@ -105,8 +88,55 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
 
         //物件生成
         widget = Instantiate(tabPrefab, defaultParent.transform);
+        widget.name = option.name;
         //加入管理
         tabs.Add(widget.GetComponent<Tab>());
         WidgetInit(widget);
     }
+
+    /// <summary>
+    /// 根據該物件下的子物件(包含Tab元件)，重新註冊。
+    /// 主要用在未按正常程序加入Tab的情形。
+    /// </summary>
+    public void Refresh()
+    {
+        tabs.Clear();
+        widgetList.Clear();
+
+        Tab[] find = GetComponentsInChildren<Tab>();
+        foreach (Tab t in find)
+        {
+            tabs.Add(t);
+            widgetList.Add(t.gameObject);
+        }
+    }
+
+
+
+
+    /// <summary>
+    /// 根據Index刪除Tab。
+    /// </summary>
+    public void DeleteTab(int index)
+    {
+        tabs[index].Delete();
+        tabs.RemoveAt(index);
+        Refresh();
+    }
+
+    /// <summary>
+    /// 刪除底下所有的Tab。
+    /// </summary>
+    public override void DeleteAll()
+    {
+        foreach (GameObject w in widgetList)
+        {
+            DestroyImmediate(w);
+        }
+        widgetList = null;
+        widgetList = new List<GameObject>();
+
+        currentWidget = null;
+    }
+
 }

@@ -53,12 +53,12 @@ public class ChoiceDialog : Dialog
                             UIOption.UICallback callback = option.btnSettings[i].onClick;
                             btn.GetComponent<Button>().onClick.AddListener(()=> {
                                 callback.Invoke(UIResult.Memo(btn.name));
-                                Cancel();
+                                Delete();
                             });
                         }
                         else
                         {
-                            btn.GetComponent<Button>().onClick.AddListener(Cancel);
+                            btn.GetComponent<Button>().onClick.AddListener(Delete);
                         }
                     }
                 }
@@ -93,7 +93,7 @@ public class ChoiceDialog : Dialog
     /// <summary>
     /// 關閉視窗。此處預設為選項2。
     /// </summary>
-    public override void Cancel()
+    public override void Delete()
     {
         option.onCancel?.Invoke(UIResult.Failed());
         Destroy(gameObject);

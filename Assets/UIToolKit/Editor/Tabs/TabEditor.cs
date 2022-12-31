@@ -19,13 +19,15 @@ public class TabEditor : Editor
         //刷新
         serializedObject.Update();
 
+        base.OnInspectorGUI();
+
         if (GUILayout.Button("Delete this Tab"))
         {
             //本體MonoBehavior class方法
-            tab.Cancel();
+            tab.Delete();
+            return;
         }
 
-        base.OnInspectorGUI();
 
         //資料更動進行寫入
         serializedObject.ApplyModifiedProperties();
