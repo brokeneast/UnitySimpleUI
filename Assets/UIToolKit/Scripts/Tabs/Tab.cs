@@ -17,9 +17,8 @@ public class Tab : UIWidget<TabOption>
 
     [SerializeField] Text titleText = null;
 
-    public TabOption option { get; protected set; }
-    public bool isSelected { get; protected set; }
-
+    public TabOption option;
+    public bool isSelected;
     Image tabImg;
 
     private void Awake()
@@ -28,16 +27,24 @@ public class Tab : UIWidget<TabOption>
         tabImg.color = colorCanceled;
     }
 
+    private void OnDestroy()
+    {
+
+        if (option != null)
+            option.tabsGroup.onCurrentTabChanged -= OnCurrentTabChanged;
+    }
+
     /// <summary>
     /// 頁籤初始化，使用進階設定。
     /// </summary>
     public override void Init(TabOption option)
     {
-        if(this.option != null)
+        if (option != null)
         {
-
+            if (option.tabsGroup != null)
+                option.tabsGroup.onCurrentTabChanged += OnCurrentTabChanged;
         }
-        else if(option== null || option.tabsGroup == null)
+        else if (option == null || option.tabsGroup == null)
         {
             Debug.LogError("無法初始化Tab元件，必須以tabsGroup元件去Create後初始化。於TabsGroup(Component)點選Create New Tab。");
             return;
@@ -46,9 +53,15 @@ public class Tab : UIWidget<TabOption>
         //設定內容
         this.option = option;
 
-        if(titleText.text == "")
+        if (titleText.text == "")
         {
             titleText.text = option.name;
+        }
+
+        //若是選擇狀態則初始化。
+        if (isSelected)
+        {
+            Select();
         }
 
         SpecificInit();
@@ -58,7 +71,7 @@ public class Tab : UIWidget<TabOption>
     /// <summary>
     /// 根據類型頁籤進行初始化。
     /// </summary>
-    protected override void SpecificInit() 
+    protected override void SpecificInit()
     {
 
     }
@@ -78,12 +91,25 @@ public class Tab : UIWidget<TabOption>
     {
         //壓下選擇中
         isSelected = true;
+        option.tabsGroup.SetCurrentSelectTab(option.index);
+
         UIResult result = new UIResult();
         result.message = option.index.ToString();
         option.onClick?.Invoke(result);
         onSelected?.Invoke();
         //View
         SelectView();
+    }
+
+    /// <summary>
+    /// 當目前Tab Group換選擇之頁籤事件。
+    /// </summary>
+    void OnCurrentTabChanged(int index)
+    {
+        if (option.index != index)
+        {
+            Cancel();
+        }
     }
 
     /// <summary>

@@ -28,6 +28,10 @@ public class TabOption : UIOption
         SetParent(tabsGroup.gameObject);
     }
 
+    public TabOption()
+    {
+    }
+
     /// <summary>
     /// 重新設置該Tab的Index。
     /// </summary>

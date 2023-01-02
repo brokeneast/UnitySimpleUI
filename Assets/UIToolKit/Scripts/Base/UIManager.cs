@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// 新增UIManager於Hierarchy。
     /// </summary>
-    [MenuItem("GameObject/UIToolkit/UI Manager")]
+    [MenuItem("GameObject/UIToolkit/UI Manager",false,1)]
     public static void CreateUIManager()
     {
         if (GameObject.Find("UIManager")==null) //場景中尚未有UIManager

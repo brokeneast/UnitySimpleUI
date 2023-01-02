@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UIToolKit/Scenes/DialogSample.unity
     guid: 31a06b9f9972fdf4bba319908b5a57d5
+  - enabled: 1
+    path: Assets/UIToolKit/Scenes/TabsSample.unity
+    guid: 67ccd2ee14b87944894a1165c865514b
   m_configObjects: {}

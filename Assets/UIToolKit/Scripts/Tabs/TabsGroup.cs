@@ -7,6 +7,11 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class TabsGroup : UIWidgetManager<Tab, TabOption>
 {
+    //物件路徑
+    //TabsGroup
+    private static readonly string horizontalTabsGroupPath = "Assets/UIToolkit/Prefabs/Tabs/HorizontalTabsGroup.prefab";
+    private static readonly string verticalTabsGroupPath = "Assets/UIToolkit/Prefabs/Tabs/VerticalTabsGroup.prefab";
+
     #region Tab Prefab Settings
     private readonly string tabPath = "Assets/UIToolkit/Prefabs/Tabs/Tab.prefab";
 
@@ -28,24 +33,61 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
     #endregion
 
     /// <summary>
-    /// 排版模式。
-    /// VERTICAL: 垂直
-    /// HORIZONTAL: 水平
-    /// NONE: 無
-    /// </summary>
-    public enum Layout {VERTICAL, HORIZONTAL, NONE};
-    public Layout layout {get; protected set;}
-
-    /// <summary>
     /// 目前有被註冊到的Tab。
     /// </summary>
     public List<Tab> tabs { get; protected set; }
 
-    private void Awake()
+    /// <summary>
+    /// 目前選到頁籤之索引值。
+    /// </summary>
+    public int currentIndex { get; protected set; }
+    public delegate void OnCurrentTabChanged(int index);
+    /// <summary>
+    /// 當目前選擇到的頁籤改變。
+    /// </summary>
+    public event OnCurrentTabChanged onCurrentTabChanged;
+
+    private void Start()
     {
-        tabs = new List<Tab>();
         Init();
     }
+
+    #region Add TabsGroup
+    /// <summary>
+    /// 新增VerticalTabsGroup於Hierarchy。
+    /// </summary>
+    [MenuItem("GameObject/UIToolkit/Tabs/Vertical TabsGroup", false, 101)]
+    public static void CreateVerticalTabsGroup()
+    {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas != null)//為UI元件須於Canvas下
+        {
+            GameObject vtg = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath(verticalTabsGroupPath, typeof(GameObject)), canvas.transform);
+            vtg.name = "VerticalTabsGroup";
+        }
+        else
+        {
+            Debug.LogError("TabsGroup為UI元件，請先建立UI Canvas(GameObject > UI > Canvas)以便生成。");
+        }
+    }
+    /// <summary>
+    /// 新增HorizontalTabsGroup於Hierarchy。
+    /// </summary>
+    [MenuItem("GameObject/UIToolkit/Tabs/Horizontal TabsGroup", false, 102)]
+    public static void CreateHorizontalTabsGroup()
+    {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas != null)//為UI元件須於Canvas下
+        {
+            GameObject htg = Instantiate((GameObject)AssetDatabase.LoadAssetAtPath(horizontalTabsGroupPath, typeof(GameObject)), canvas.transform);
+            htg.name = "HorizontalTabsGroup";
+        }
+        else
+        {
+            Debug.LogError("TabsGroup為UI元件，請先建立UI Canvas(GameObject > UI > Canvas)以便生成。");
+        }
+    }
+    #endregion
 
     /// <summary>
     /// 初始化，並設定預設位置。
@@ -54,7 +96,8 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
     {
         //初始化
         _tabPrefab = (GameObject)AssetDatabase.LoadAssetAtPath(tabPath, typeof(GameObject));
-        layout = Layout.NONE;
+        tabs = new List<Tab>();
+        Refresh();
     }
 
     private void Update()
@@ -88,7 +131,7 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
 
         //物件生成
         widget = Instantiate(tabPrefab, defaultParent.transform);
-        widget.name = option.name;
+
         //加入管理
         tabs.Add(widget.GetComponent<Tab>());
         WidgetInit(widget);
@@ -104,15 +147,14 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
         widgetList.Clear();
 
         Tab[] find = GetComponentsInChildren<Tab>();
-        foreach (Tab t in find)
+        //重新定義
+        for (int i = 0; i < find.Length; i++)
         {
-            tabs.Add(t);
-            widgetList.Add(t.gameObject);
+            option = new TabOption(this, tabs.Count);
+            tabs.Add(find[i]);
+            WidgetInit(find[i].gameObject);
         }
     }
-
-
-
 
     /// <summary>
     /// 根據Index刪除Tab。
@@ -139,4 +181,12 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
         currentWidget = null;
     }
 
+    /// <summary>
+    /// 設置目前選擇的頁籤。
+    /// </summary>
+    public void SetCurrentSelectTab(int index)
+    {
+        currentIndex = index;
+        onCurrentTabChanged?.Invoke(currentIndex);
+    }
 }
