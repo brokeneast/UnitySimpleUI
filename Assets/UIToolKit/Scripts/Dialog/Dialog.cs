@@ -29,7 +29,7 @@
     /// <summary>
     /// 關閉視窗。
     /// </summary>
-    public override void Cancel()
+    public override void Delete()
     {
         option.onCancel?.Invoke(UIResult.Ok());
         Destroy(gameObject);

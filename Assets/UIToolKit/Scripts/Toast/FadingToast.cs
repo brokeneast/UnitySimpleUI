@@ -60,7 +60,7 @@ public class FadingToast : TextToast
         {
             alpha = 0;
             StopAllCoroutines();
-            Cancel();
+            Delete();
         }
 
     }

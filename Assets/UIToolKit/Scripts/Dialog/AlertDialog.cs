@@ -106,12 +106,12 @@ public class AlertDialog : Dialog
                         if (option.btnSettings[i].onClick != null)
                         {
                             UIOption.UICallback callback = option.btnSettings[i].onClick;
-                            btn.GetComponent<Button>().onClick.AddListener(() => { callback.Invoke(UIResult.Memo("")); Cancel(); });
-                            Cancel();
+                            btn.GetComponent<Button>().onClick.AddListener(() => { callback.Invoke(UIResult.Memo("")); Delete(); });
+                            Delete();
                         }
                         else
                         {
-                            btn.GetComponent<Button>().onClick.AddListener(Cancel);
+                            btn.GetComponent<Button>().onClick.AddListener(Delete);
                         }
                     }
                 }
@@ -138,7 +138,7 @@ public class AlertDialog : Dialog
     /// <summary>
     /// 關閉視窗。
     /// </summary>
-    public override void Cancel()
+    public override void Delete()
     {
         option.onCancel?.Invoke(UIResult.Failed());
         Destroy(gameObject);

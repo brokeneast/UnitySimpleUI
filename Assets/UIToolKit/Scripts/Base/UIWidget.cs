@@ -18,5 +18,5 @@ public abstract class UIWidget<T> : MonoBehaviour
     /// <summary>
     /// 關閉。
     /// </summary>
-    public abstract void Cancel();
+    public abstract void Delete();
 }

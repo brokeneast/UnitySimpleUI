@@ -36,6 +36,9 @@
 
 * 調用方式
 
+* 範例資源位置
+範例場景`UIToolKit > Scenes > DialogSample.unity`
+
 * 目前支援類型
 	- [x] 提醒
 	- [x] 選擇
@@ -79,17 +82,18 @@
 從多頁籤擇一後，更新所有頁籤之狀態，並觸發動作。
 
 * 初始化
-1. 創建一物件作為其他頁籤之父元件，並於該物件加入UITabsGroup元件。
-`Add Component > UITabsGroup`
-2. 於父物件中加入子物件作為頁籤，並於該物件加入UITab元件。
-`Add Component > UITab`
+ 1. 新增TabsGroup
+`Menu -> GameObject -> UI Toolkit -> Tabs`
+
+ 2. 於TabsGroup Component中點擊 `Create Tab` 加入頁籤。
 
 * 範例資源位置
-`Assets > Prefabs > Tabs`
+範例場景`UIToolKit > Scenes > TabsSample.unity`
 
 * 目前支援類型
-	- [x] 頁籤
-	- [ ] 頁籤與內容
+	- [x] 一般
+	- [x] 垂直
+	- [x] 水平
 
 
 ## 小元件 UIComponent
