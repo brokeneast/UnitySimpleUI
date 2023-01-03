@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5052250229801316723}
   - component: {fileID: 5052250229801316732}
   - component: {fileID: 5052250229801316733}
+  - component: {fileID: 8586674132563085134}
   m_Layer: 5
   m_Name: Tab
   m_TagString: Untagged
@@ -235,6 +236,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   titleText: {fileID: 5052250228621850312}
+  isSelected: 0
 --- !u!114 &5052250229801316733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,3 +257,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8586674132563085134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052250229801316735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.19607843}
+  m_EffectDistance: {x: 1, y: -4}
+  m_UseGraphicAlpha: 1

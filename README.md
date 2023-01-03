@@ -82,17 +82,18 @@
 從多頁籤擇一後，更新所有頁籤之狀態，並觸發動作。
 
 * 初始化
- 1. 創建一物件作為其他頁籤之父元件，並於該物件加入 `TabsGroup` 元件。
-`Add Component > TabsGroup`
+ 1. 新增TabsGroup
+`Menu -> GameObject -> UI Toolkit -> Tabs`
 
- 2. 於TabsGroup中點擊 `Create Tab` 加入頁籤。
+ 2. 於TabsGroup Component中點擊 `Create Tab` 加入頁籤。
 
 * 範例資源位置
 範例場景`UIToolKit > Scenes > TabsSample.unity`
 
 * 目前支援類型
-	- [x] 頁籤
-	- [ ] 頁籤與內容
+	- [x] 一般
+	- [x] 垂直
+	- [x] 水平
 
 
 ## 小元件 UIComponent

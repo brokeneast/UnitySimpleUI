@@ -17,8 +17,8 @@ public class Tab : UIWidget<TabOption>
 
     [SerializeField] Text titleText = null;
 
-    public TabOption option;
-    public bool isSelected;
+    public TabOption option { get; protected set; }
+    public bool isSelected { get; protected set; }
     Image tabImg;
 
     private void Awake()
@@ -109,6 +109,12 @@ public class Tab : UIWidget<TabOption>
         if (option.index != index)
         {
             Cancel();
+        }
+        else
+        {
+            //如果尚未被選擇，則觸發
+            if (!isSelected)
+                Select();
         }
     }
 

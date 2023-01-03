@@ -50,6 +50,8 @@ public class TabsGroup : UIWidgetManager<Tab, TabOption>
     private void Start()
     {
         Init();
+
+        SetCurrentSelectTab(0);
     }
 
     #region Add TabsGroup
