@@ -18,7 +18,7 @@
 於Hierarchy右鍵增添Canvas。
 
  2. 新增UIManager
-`Menu -> GameObject -> UI Toolkit -> UI Manager`
+`Menu -> GameObject -> SimpleUI -> UI Manager`
 
  3. 依照需求新增其他欲動態控制之UI模組。
 `UIManager Component > Context Menu > Add 動態模組名稱`
@@ -37,7 +37,7 @@
 * 調用方式
 
 * 範例資源位置
-範例場景`UIToolKit > Scenes > DialogSample.unity`
+範例場景`SimpleUI > Scenes > DialogSample.unity`
 
 * 目前支援類型
 	- [x] 提醒
@@ -83,12 +83,12 @@
 
 * 初始化
  1. 新增TabsGroup
-`Menu -> GameObject -> UI Toolkit -> Tabs`
+`Menu -> GameObject -> SimpleUI -> Tabs`
 
  2. 於TabsGroup Component中點擊 `Create Tab` 加入頁籤。
 
 * 範例資源位置
-範例場景`UIToolKit > Scenes > TabsSample.unity`
+範例場景`SimpleUI > Scenes > TabsSample.unity`
 
 * 目前支援類型
 	- [x] 一般
